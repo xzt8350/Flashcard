@@ -16,39 +16,27 @@ conditions.
 
 *   **Sign in Page** 
   
-    ![solarized dualmode](https://github.com/altercation/solarized/raw/master/img/solarized-dualmode.png)
+    ![Sign in Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/login_page.png)
 
+*   **Home Page** 
+  
+    ![Home Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/home_page.png)
 
+*   **About Me Page** 
+  
+    ![About Me Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/about_me.png)
 
-*   **Emacs** courtesy of [Greg Pfeil](http://blog.technomadic.org)
-    ([@sellout](http://twitter.com/sellout))
-    in the main repo and in a [standalone repository][Emacs Repository]
-*   **IntelliJ IDEA**
-    courtesy of [Johan Kaving](https://github.com/jkaving) and
-    ([@flangy](http://twitter.com/flangy))
-    in the main repo and in a [standalone repository][IntelliJ Repository]
-*   **NetBeans** courtesy of [Brian Fenton](https://github.com/fentie) and
-    in the main repo and in a [standalone repository][NetBeans Repository]
-*   **SeeStyle theme for Coda & SubEthaEdit** courtesy of
-    [Justin Hileman](http://justinhileman.com/)
-    ([@bobthecow](http://twitter.com/bobthecow)),
-    in the main repo and in a
-    [standalone repository][SeeStyle-Coda-SubEthaEdit Repository]
-*   **TextMate** --- ***NOTE:*** Dark Theme is work in progress\
-    courtesy of [Tom Martin](http://thedeplorableword.net/)
-    ([@deplorableword](http://twitter.com/deplorableword))
-    in the main repo and in a [standalone repository][TextMate Repository]
-    (with key work from [Mark Story](http://mark-story.com)
-    and [Brian Mathiyakom](http://brian.rarevisions.net))
-*   **TextWrangler & BBEdit** courtesy of [Rui Carmo](http://the.taoofmac.com)
-    ([@taoofmac](http://twitter.com/taoofmac))
-    in the main repo and in a [standalone repository][TextWrangler-BBEdit Repository]
-*   **Visual Studio** courtesy of [David Thibault](http://www.leddt.com)
-    ([@leddt](http://twitter.com/leddt))
-    in the main repo and in a [standalone repository][Visual Studio Repository]
+*   **Project Page** 
+  
+    ![Project Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/about_me.png)
 
-*   **Xcode** work in progress ports are available for [Xcode 3] and [Xcode 4]
-    and will be pulled into the main Solarized project soon.
+*   **Game Page** 
+  
+    ![Game Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/game_page.png)
+
+*   **Contact Page** 
+  
+    ![Contact Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/contact_page.png)
 
 ### Terminal Emulators
 
