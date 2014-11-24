@@ -38,32 +38,9 @@ conditions.
   
     ![Contact Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/contact_page.png)
 
-### Terminal Emulators
+### Site Map
 
-* **Xresources** / Xdefaults
-* **iTerm2**
-* **OS X Terminal.app**
-* **Putty** courtesy [Brant Bobby](http://www.control-v.net)
-    and on [GitHub](https://github.com/brantb)
-* **Xfce terminal** courtesy [Sasha Gerrand](http://sgerrand.com)
-    and on [GitHub](https://github.com/sgerrand)
-
-### Other Applications
-
-*   **Mutt** e-mail client also by [me] (*just* the Mutt colorscheme is
-    [available here][Mutt Repository])
-
-### Palettes
-
-* **Adobe Photoshop** Palette (inc. L\*a\*b values)
-* **Apple Color Picker** Palettes
-* **GIMP** Palette
-
-Don't see the application you want to use it in? Download the palettes (or pull
-the values from the table below) and create your own. Submit it back and I'll
-happily note the contribution and include it on this page.  See also the
-[Usage & Development](#usage-development) section below for details on the
-specific values to be used in different contexts.
+ ![Contact Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/sitemap.png)
 
 Download
 --------
