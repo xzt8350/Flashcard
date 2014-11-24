@@ -3,14 +3,7 @@ Final Project
 
 ## Description
 
-Solarized is a sixteen color palette (eight monotones, eight accent colors)
-designed for use with terminal and gui applications. It has several [unique
-properties](#features). I designed this colorscheme with both precise
-[CIELAB](http://en.wikipedia.org/wiki/Lab_color_space) lightness relationships
-and a refined set of hues based on fixed color wheel relationships. It has been
-tested extensively in real world use on color calibrated displays (as well as
-uncalibrated/intentionally miscalibrated displays) and in a variety of lighting
-conditions.
+I use the Node.js to build up my personal website for the final project. Users are required to sign up first to access the whole website. The website includes the introduction of me, the project i have done relative to my major of computer science, and the Sneak Game i wrote. 
 
 ### Wireframes
 
