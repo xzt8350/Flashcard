@@ -5,6 +5,40 @@ Final Project
 
 I use the Node.js to build up my personal website for the final project. Users are required to sign up first to access the whole website. The website includes the introduction of me, the project i have done relative to my major of computer science, and the Sneak Game i wrote. 
 
+##Schemas
+
+  user : to store the user information
+  
+    var user = new mongoose.Schema({
+	      login: [Login],
+	      game: [Game]
+    });
+    
+  Login: to store users' login in information including local log in or access by facebook and google
+    
+    var Login = new mongoose.Schema({
+    
+        local         : {
+          email    : String,
+          password : String,
+        },
+        
+        facebook      : {
+          id       : String,
+          token    : String,
+          email    : String,
+          name     : String
+        },
+  
+        google        : {
+          id       : String,
+          token    : String,
+          email    : String,
+          name     : String
+      }
+    });
+    
+
 ## Wireframes
 
 *   **Sign in Page** 
