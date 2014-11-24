@@ -16,7 +16,7 @@ conditions.
 
 *   **Sign in Page** 
   
-    ![solarized dualmode](https://github.com/altercation/solarized/raw/master/img/solarized-dualmode.png)
+    ![Sign in Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/login_page.png)
 
 
 
