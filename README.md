@@ -36,8 +36,14 @@ I use the Node.js to build up my personal website for the final project. Users a
           email    : String,
           name     : String
       }
+    }); 
+  
+  Game : store the three highest score of all users' play and the highest score of the playing user		
+ 
+    var Game = new mongoose.Schema({
+	      top_three_scores : [],
+	      highest_score    : number
     });
-    
 
 ## Wireframes
 
