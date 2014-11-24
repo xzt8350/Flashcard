@@ -5,7 +5,7 @@ Final Project
 
 I use the Node.js to build up my personal website for the final project. Users are required to sign up first to access the whole website. The website includes the introduction of me, the project i have done relative to my major of computer science, and the Sneak Game i wrote. 
 
-### Wireframes
+## Wireframes
 
 *   **Sign in Page** 
   
@@ -31,7 +31,7 @@ I use the Node.js to build up my personal website for the final project. Users a
   
     ![Contact Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/contact_page.png)
 
-### Site Map
+## Site Map
 
  ![Contact Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/sitemap.png)
 
