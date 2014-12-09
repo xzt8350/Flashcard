@@ -1,0 +1,35 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script  type="text/javascript" src="/javascripts/flashcard.js"></script>
+
+<h2>Flashcards </h2>
+
+<blockquote >"More flashcards, higher score ☺"  ----- Pf.Versoza</blockquote>
+
+<div class="stage">
+  <div class="flashcard" id = "box">
+    <div class="front">
+	    <div class = "star">
+		    <span id ="mark1" class = "mark" >♡</span>
+	    </div>
+      <p id= "ftxt" name = "question">{{flashcard.question}}</p>
+    </div>
+    <div class="back">
+	    <div class = "star">
+		    <span id ="mark2" class = "mark" >♡</span>
+	    </div>
+	    <p id = "btxt">{{flashcard.answer}}</p>
+    </div>    
+  </div>  
+  
+  <div class = "button" id = "hide">
+    	<span id = "back" class = "disable">&#x261c</span>
+    	<span id = "index">{{index}}</span> 
+    	<span id = "of">of </span> 
+    	<span id = "total">{{total}} </span>
+		<span id = "next">&#x261E</span>
+  </div>
+
+</div>
+
+
+<p id = "check" hidden>{{is_mark}}</p>

@@ -1,0 +1,35 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script  type="text/javascript" src="/javascripts/mark.js"></script>
+
+<h2>Marked Flashcards</h2>
+
+<blockquote >"Marked more flashcards, means you know nothing or a lot☺"  ----- Pf.Versoza</blockquote>
+
+<div class="stage">
+  <div class="flashcard" id = "marked">
+    <div class="front">
+	    <div class = "star">
+		    <span id ="mark1" class = "mark" >♡</span>
+	    </div>
+      <p id= "ftxt" name = "question">{{flashcard.question}}</p>
+    </div>
+    <div class="back">
+	    <div class = "star">
+		    <span id ="mark2" class = "mark" >♡</span>
+	    </div>
+	    <p id = "btxt">{{flashcard.answer}}</p>
+    </div>    
+  </div>  
+  
+  <div class = "button" id = "hide">
+    	<span id = "back" class = "disable">&#x261c</span>
+    	<span id = "index">{{index}}</span> 
+    	<span id = "of">of </span> 
+    	<span id = "total">{{total}} </span>
+		<span id = "next">&#x261E</span>
+  </div>
+
+</div>
+
+
+<p id = "check" hidden>{{check}}</p>
