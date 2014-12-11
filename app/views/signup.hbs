@@ -1,7 +1,12 @@
 <h1>Signup</h1>
 
 
-<form method="POST" action="/signup">
+{{#each message}}
+   <div class="alert alert-danger" id="msg">{{this}}</div> 
+{{/each}}
+
+
+<form method="POST" action="/signup"  id ="sign">
   <div class="inset">
   <p>
     <label for="email">Email</label>

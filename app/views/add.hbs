@@ -1,0 +1,24 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script  type="text/javascript" src="/javascripts/add.js"></script>
+<p id="message"></p>
+
+<div class="shake shake-hard" id = "shake">
+<h2 id = "dec">★★★★★Shake the Final★★★★★</h2>
+</div>
+
+<h6> ☝☝☝Try☝☝☝</h6>
+
+
+<form role="form" id = "question" method="POST" action="/add">
+<h1>Add Your Flashcards </h1>
+  <div class="form-group">
+	    <label >Questions</label>
+    <textarea class="form-control" rows="3" name="question" id ="new_question"  required></textarea>
+  </div>
+  <div class="form-group">
+	    <label>Answers</label>
+    <textarea class="form-control" rows="3" name ="answer" id = "new_answer" required></textarea>
+  </div>
+  <button type="button" class="btn btn-warning" id = "add" >Submit</button>
+</form>
+

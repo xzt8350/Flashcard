@@ -4,6 +4,7 @@
 var express  = require('express');
 var app      = express();
 var port     = process.env.PORT || 3000;
+var sass     = require('node-sass');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -12,6 +13,7 @@ var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
+
 
 // configuration ===============================================================
 require('./config/database'); // connect to our database
@@ -26,6 +28,7 @@ app.use(bodyParser()); // get information from html forms
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -43,9 +46,7 @@ app.listen(port);
 console.log('The magic happens on port ' + port);
 
 
-
 // error handlers===============================================================
-
 app.use(function(req, res, next) {  // catch 404 and forward to error handler
     var err = new Error('Not Found');
     err.status = 404;

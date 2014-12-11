@@ -8,9 +8,10 @@ var User = new mongoose.Schema({
         password     : String,
     },
       
-	num_total : Number,
-	num_marked : Number,
-	marked_index: [Number], 
+	new_user    : Boolean,
+	num_marked  : Number,
+	marked_index: [Number],
+	num_total   : Number, 
     
     flashcards : [Flashcard]
 });
@@ -19,9 +20,7 @@ var User = new mongoose.Schema({
 var Flashcard = new mongoose.Schema({
 	question : String,
 	answer :  String,
-	correct : Boolean,
-	mark : Boolean,
-	index : Number 
+	mark : Boolean
 });
 
 

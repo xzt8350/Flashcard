@@ -14,12 +14,6 @@ $(document).ready(function() {
   });
 });
 
-
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', main);
 
 function main() {
@@ -29,12 +23,28 @@ function main() {
 	var box = document.getElementById('box');
 	
 	
+	/* use when check wether the first flashcard is marked or not*/
 	var check_mark = document.getElementById('check');
 	if(check_mark.innerHTML != -1){
 		/*that means the first flash card is marked */
-			var box = document.getElementById('box');
+			box = document.getElementById('box');
 			box.id = 'marked';
 	}	
+	
+	/*use to check whether this page is redirected by other pages*/
+	var status = document.getElementById('status');
+	if(status.innerHTML == 'done'){
+		document.getElementById('message').innerHTML = "❤❤❤You have done all marked flashcards❤❤❤";
+		document.getElementById('message').className = "done";
+		$("#message").fadeOut(4000);
+		console.log("jinlaile");
+	}
+	else if(status.innerHTML == 'none'){
+		document.getElementById('message').innerHTML = "!!!You have not marked any flashcards yet!!!";
+		document.getElementById('message').className = "none";
+		$("#message").fadeOut(4000);
+		console.log("jinlaile");
+	}
 
 
     next.addEventListener('click',next_func);
@@ -79,15 +89,16 @@ function next_func() {
 			
 			/*check whether this card is marked */
 			var check = data.is_mark;
+			var box;
 			if(check != -1){
 				/*this card is marked, so highlight it*/
-				var box = document.getElementById('box');
-				if(box != null){
+				box = document.getElementById('box');
+				if(box !== null){
 					box.id = 'marked';	
 				}	
 			}else{
-				var box = document.getElementById('marked');
-				if(box != null){
+				box = document.getElementById('marked');
+				if(box !== null){
 					box.id = 'box';	
 				}	
 			}
@@ -141,15 +152,16 @@ function back_func() {
 			
 			/*check whether this card is marked */
 			var check = data.is_mark;
+			var box;
 			if(check != -1){
 				/*this card is marked, so highlight it*/
-				var box = document.getElementById('box');
-				if(box != null){
+				box = document.getElementById('box');
+				if(box !== null){
 					box.id = 'marked';	
 				}	
 			}else{
-				var box = document.getElementById('marked');
-				if(box != null){
+				box = document.getElementById('marked');
+				if(box !== null){
 					box.id = 'box';	
 				}	
 			}
@@ -177,14 +189,16 @@ function mark_func() {
 	count++;
 	
 	var box = document.getElementById('box');
-	if(box == null){
+	var req, url, index;
+	
+	if(box === null){
 
 		/* If box marked, change to unmarked */
-		var req = new XMLHttpRequest(),
+		req = new XMLHttpRequest();
 	    url = 'http://localhost:3000/api/unmark';
 		req.open('POST', url, true);
 		
-		var index = document.getElementById('index').innerHTML;
+		index = document.getElementById('index').innerHTML;
 		
 		req.addEventListener('load', function() {
 			if (req.status >= 200 && req.status < 400){
@@ -198,11 +212,11 @@ function mark_func() {
 	}
 	else{
 		/* If box is unmarked, change to marked */
-		var req = new XMLHttpRequest(),
+		req = new XMLHttpRequest();
 	    url = 'http://localhost:3000/api/mark';
 		req.open('POST', url, true);
 		
-		var index = document.getElementById('index').innerHTML;
+		index = document.getElementById('index').innerHTML;
 		
 		req.addEventListener('load', function() {
 			if (req.status >= 200 && req.status < 400){

@@ -1,8 +1,18 @@
 var mongoose = require('mongoose');
 var User      = mongoose.model('User');
 var Flashcard = mongoose.model('Flashcard');
+var session = require('express-session'); /*require session moduel*/
+
+//session set up
+var sessionOptions = {
+	secret: 'secret cookie thang',
+	resave: true,
+	saveUninitialized: true
+};
 
 module.exports = function(app, passport) {
+	
+	app.use(session(sessionOptions));
 
     // =====================================
     // HOME PAGE (with login links) ========
@@ -24,7 +34,7 @@ module.exports = function(app, passport) {
     app.post('/login', passport.authenticate('local-login', {
         successRedirect : '/home', // redirect to the secure profile section
         failureRedirect : '/login', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
+        failureFlash : true  // allow flash messages
     }));
 
 
@@ -38,12 +48,13 @@ module.exports = function(app, passport) {
     });
 
     // process the signup form
-     app.post('/signup', passport.authenticate('local-signup', {
+    app.post('/signup', passport.authenticate('local-signup', {
         successRedirect : '/home',     // redirect to the secure profile section
         failureRedirect : '/signup',  // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
-
+    
+    
     // =====================================
     // HOME SECTION ========================
     // =====================================
@@ -51,52 +62,53 @@ module.exports = function(app, passport) {
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/home', isLoggedIn, function(req, res) {
 	    
-	    var user = req.user;
+		var user = req.user;
 	    
-	    
-	    if(user.num_done == null){
+	  
+	    if(user.new_user == null){
 		    initialFlashcards(user);
-	    	user.num_done = 0; 
-			user.num_total = 6;
+	    	
+	    	user.num_marked = 0;
+			user.num_total = 10;
+			user.new_user = true;
 			
-			User.findOne({email : req.user.email}, function(err, user){
-				if(!err){
-					user.num_total = 6;
-					user.num_marked = 0;
-					user.markModified('local');
-					user.save(function(err, modifiedItems, count) {});					
-				}
-			});
-		
-					
-    	}
-		
-        res.render('home', {
+			user.markModified('local');
+			user.save(function(err, modifiedItems, count) {});					
+		}
+				
+		res.render('home', {
             username : user.local.email // get the user out of session and pass to template
-        });
-     
+        });	
+							
+	
+		
     });
     
     // =====================================
-    // Flashcard SECTION =====================
+    // Flashcard SECTION ===================
     // =====================================
     app.get('/flashcard', isLoggedIn, function(req, res) {
-	   
-	    /*Render the first index of flashcard to the user*/	    
-	    var card_to_do = req.user.flashcards[0];
 	    
-	    User.findOne({email : req.user.email}, function(err, user){
-			if(!err){	  
-				var is_mark = user.marked_index.indexOf(1); 
+	    var user = req.user;
+	    
+	    /*Render the first index of flashcard to the user*/	    
+	    var card_to_do = user.flashcards[0];
+	    		
+		/* check whether the first flashcard is marked or not*/
+		var is_mark = user.marked_index.indexOf(1); 
 				
-				res.render('flashcard', {
-					flashcard : card_to_do,
-					index     : 1,
-					total     : req.user.num_total,
-					is_mark   : is_mark
-	     		});
-			}			
-		});
+		/*check wether this page is redirected by other page*/
+		var temp = req.session.status; 
+		req.session.status = "nothing";
+					
+		res.render('flashcard', {
+			flashcard : card_to_do,
+			index     : 1,
+			total     : user.num_total,
+			is_mark   : is_mark,
+			status    : temp
+ 		});
+		
    		
     });
 	
@@ -109,29 +121,29 @@ module.exports = function(app, passport) {
 		var index = +req.body.index;
 		var last = false; /*counter for record if the card is the last one */
 		
-		User.findOne({email : req.user.email}, function(err, user){
-			if(!err){
-				
-				/*render the next card for user */
-				var next_card = req.user.flashcards[index];
-				/*check whether the next card is marked */
-				var is_mark = user.marked_index.indexOf(index+1); 
-							
-				/* If user answerd the last question */
-				if(+index + 1 == user.num_total){
-					index++;
-					last = true;
-				}
-				else{
-					index++; /*increment the index of the card*/ 		
-				}
-			
-				res.json({ question : next_card.question , answer : next_card.answer, index: index, last : 						last, is_mark : is_mark});
-				
-			}
-		});
-			
-	});
+		var user = req.user;
+		
+		console.log(user.flashcards);
+		
+		/*render the next card for user */
+		var next_card = user.flashcards[index];
+		/*check whether the next card is marked */
+		var is_mark = user.marked_index.indexOf(index+1);
+		/* If user answerd the last question */ 
+		if(+index + 1 == user.num_total){
+			index++;
+			last = true;
+		}
+		else{
+			index++; /*increment the index of the card*/ 		
+		}
+
+		
+		res.json({ question : next_card.question , answer : next_card.answer, index: index, last : 						last, is_mark : is_mark});
+		
+		
+		
+});
 	
 			
 	// =====================================
@@ -151,7 +163,7 @@ module.exports = function(app, passport) {
 				var is_mark = user.marked_index.indexOf(index-1); 
 		
 				/* If user answerd the last question */
-				if(+index - 2 ==  0){
+				if(+index - 2 ===  0){
 					index--;
 					first = true;
 				}
@@ -159,7 +171,7 @@ module.exports = function(app, passport) {
 					index--; /*increment the index of the card*/ 		
 				}
 			
-				res.json({ question : next_card.question , answer : next_card.answer, index: index, first : 						first, is_mark : is_mark});
+				res.json({ question : next_card.question , answer : next_card.answer, index: index, first : first, is_mark : is_mark});
 				
 			}
 		});
@@ -177,7 +189,6 @@ module.exports = function(app, passport) {
 		console.log(typeof index, "hello");
 		User.findOne({email : req.user.email}, function(err, user){
 			if(!err){	
-				user.num_marked++; 			   /*increment the total number of marked cards*/
 				user.marked_index.push(index); /*push index to the array of marked cards */
 				/*update the database*/
 				console.log(user.marked_index);
@@ -201,7 +212,6 @@ module.exports = function(app, passport) {
 	
 		User.findOne({email : req.user.email}, function(err, user){
 			if(!err){	
-				user.num_marked--; 			   /*decrement the total number of marked cards*/
 				user.marked_index.remove(index); /*push index to the array of marked cards */
 				/*update the database*/
 				console.log(user.marked_index);
@@ -227,7 +237,7 @@ module.exports = function(app, passport) {
 	    User.findOne({email : req.user.email}, function(err, user){
 			if(!err){
 				var total = user.marked_index.length;
-				 if(total != 0){
+				 if(total !== 0){
 				    /*user marked card before*/
 				    check = true;
 				     
@@ -245,11 +255,11 @@ module.exports = function(app, passport) {
 							check     : check
 			     	});
 			     	
-			     }else{
-				     /*the user have not yet marked any card before */
-				    res.render('marked', {
-							check     : check
-			     	});
+			     }else{ /*the user have not yet marked any card before */
+				    
+				    /*set the status*/ 
+				    req.session.status = 'none'; 
+					res.redirect('flashcard');
 			     }		
 			}			
 		});
@@ -273,15 +283,14 @@ module.exports = function(app, passport) {
 				/* check whether this card is the last marked card */
 				console.log("index :",index, "total", total);
 				if(index+1 == total){
-					console.log("jinlaile");
 					last = true;
 				}
 				
 				/*find the next card*/
-				var flashcard_index = user.marked_index[index] -1;;
+				var flashcard_index = user.marked_index[index] -1;
 				var next_card = user.flashcards[flashcard_index];
 				index++;
-				res.json({ question : next_card.question , answer : next_card.answer, index: index, last : 						last});
+				res.json({ question : next_card.question , answer : next_card.answer, index: index, last : last});
 	
 			}
 		});
@@ -301,8 +310,7 @@ module.exports = function(app, passport) {
 			if(!err){
 				
 				/*check whether this card is the first marked */				
-				if(index-2 == 0){
-					console.log("要出去了");
+				if(index-2 === 0){
 					first = true;
 				}
 				
@@ -312,44 +320,128 @@ module.exports = function(app, passport) {
 				var next_card = user.flashcards[flashcard_index];
 				index--;
 				
-				res.json({ question : next_card.question , answer : next_card.answer, index: index, first : 						first});
+				res.json({ question : next_card.question , answer : next_card.answer, index: index, first : first});
 
 			}
 		});
 			
 	});
 	
-
-	// =====================================
-    // @Unmarked Page ======================
-    // =====================================
-    app.get('/unmarked', isLoggedIn, function(req, res) {
-	     
-	    if(req.user.num_marked == 0){
-		    res.render('unmark');
-	    }      
-	    else{  
-		    var flashcard = req.user.flashcards;
-		  
-		    var card_to_do;
-		    /*find next marked flashcard for this user*/
-		    for(var i = 0; i < flashcard.length; i++){
-			    if(flashcard[i].mark == true)
-			    	card_to_do = flashcard[i];
-			    	break;
-		    }
-		    		
-	        res.render('marked', {
-		          flashcard : card_to_do
-		    });     
-	    }     
-    });
 	
+		
+	// =====================================
+    // API@Marked When user click unmark ===  
+    // =====================================	
+	app.post('/api/marked/unmark',isLoggedIn, function(req, res) {
+		
+		var index = +req.body.index;
+	
+		console.log(index);
+		
+		var question;
+		var answer;
+		
+		User.findOne({email : req.user.email}, function(err, user){
+			if(!err){
+							
+				var this_index = index -1;
+				
+				var flashcard_index = user.marked_index[this_index];
+				user.marked_index.remove(flashcard_index); /*remove index to the array of marked cards */
+				
+				var total = user.marked_index.length;
+				
+				/*check if this is the last unmarked flashcard */
+				if(total === 0){
+					req.session.status = "done";
+					question = "";
+					answer   = "";
+				}
+				else{
+					/*check wether this is the last index*/
+					console.log("jilai");
+					console.log('this_index',this_index);
+					console.log(user.marked_index);
+					if(this_index == 1){
+						this_index =0;
+						index--;
+					}
+					/*find the next unmarked card*/
+					flashcard_index = user.marked_index[this_index];
+					console.log(flashcard_index);
+					var next_card = user.flashcards[flashcard_index-1];	
+					question = next_card.question;
+					answer =  next_card.answer;
+				}
+				
+				/*update the database*/
+				console.log("marked index",user.marked_index);
+				user.markModified('flashcards');
+				user.save(function(err, modifiedItems, count) {
+				});
+				
+				console.log("index", index, "total", total);
+				
+				res.json({question : question , answer : answer, index: index, total : total});			
+			}			
+		});
+		
+			
+	});
+	
+	// =====================================
+    // Add Flashcards SECTION =====================
+    // =====================================
+    app.get('/add', isLoggedIn, function(req, res) {
+	   	
+	
+	   	var user = req.user;
+	    
+	    /* check whether the first flashcard is marked or not*/
+		var is_mark = user.marked_index.indexOf(1); 
+				
+		/*check wether this page is redirected by other page*/
+		var temp = req.session.add; 
+		req.session.add = "nothing";
+		
+		res.render('add', {
+			add       : temp
+ 		});
 
 
-
-
-
+   		
+    });
+    
+    // =====================================
+    // Add Flashcards SECTION(post) ========
+    // =====================================
+    app.post('/api/add', isLoggedIn, function(req, res) {
+	   
+		var user = req.user;
+	    var question = req.body.question;
+	    var answer = req.body.answer;
+	    
+	    
+		var flashcard = new Flashcard({
+			question : question,  
+			answer   : answer,
+			mark: false
+		});
+		
+	    user.num_total = user.num_total+1;
+	    user.flashcards.push(flashcard);
+	    user.markModified('flashcards');
+		user.save(function(err, savedUser, count) {
+	    });
+		
+		console.log(user.flashcards);
+		
+		res.json();
+   		
+    });
+    
+	
+	
     // =====================================
     // LOGOUT ==============================
     // =====================================
@@ -380,30 +472,54 @@ function initialFlashcards(user){
 	user.update({$push: {flashcards : {
 				question : "Q: What is Ajax?",  
 				answer : "AJAX is short for asynchronous JavaScript and XML. It's basically a bunch of interrelated technologies and techniques used to create asynchronous web applications",
-				correct : false, mark: false}}},  function(err, flashcard, count) {console.log(err,  flashcard, count)});		
+				mark: false}}},  function(err, flashcard, count) {console.log(err,  flashcard, count);});		
 	
 	user.update({$push: {flashcards : {question : "Q: Describe the use of the XMLHttpRequest",  
 				answer : "1.It provides an interface for retrieving data from a URL 2.a page can update just a part of the itself rather than reloading itself entirely", 
-				correct : false, mark: false}}},function(err,  flashcard, count) {console.log(err,  flashcard, count)});
+				mark: false}}},function(err,  flashcard, count) {console.log(err,  flashcard, count);});
 								
 	user.update({$push: {flashcards : {question : "Q: What is XMLHttpRequest?",  
 				answer : "XMLHttpRequest is JavaScript object that allows browser based JavaScript to make http requests", 
-				correct : false, mark: false}}},function(err,  flashcard, count) {console.log(err,  flashcard, count)});	
+				mark: false}}},function(err,  flashcard, count) {console.log(err,  flashcard, count);});	
 		
 	
 	user.update({$push: {flashcards : {
 				question : "Q: What does same site or same origin mean??",  
-				answer : "Two pages have the same origin if the protocol, port (if one is specified), and host are the same for both pages",             			    correct : false, mark: false}}},function(err, flashcard, count) {console.log(err, flashcard, count)});	
+				answer : "Two pages have the same origin if the protocol, port (if one is specified), and host are the same for both pages",             			    mark: false}}},function(err, flashcard, count) {console.log(err, flashcard, count);});	
 	
 	
 	user.update({$push: {flashcards : {
 				question : "Q: What is SOP?",  
 				answer : "The same origin policy is a policy implemented by browsers that restricts how a document, script or data from one origin can interact with a document, script or data from another origin.", 
-				correct : false, mark: false}}},function(err, flashcard, count) {console.log(err, flashcard, count)});	
+				mark: false}}},function(err, flashcard, count) {console.log(err, flashcard, count);});	
 	
 	user.update({$push: {flashcards : {
-				question : "Q: What does same site or same origin mean??",  
-				answer : "Two pages have the same origin if the protocol, port (if one is specified), and host are the same for both pages", 				correct : false, mark: false}}},function(err, flashcard, count) {console.log(err, flashcard, count)});	
+				question : "Q: How do we read or change text contained within a node? How do we create new nodes?",  
+				answer : "node.nodeValue and node.textContent",
+				mark: false}}},function(err, flashcard, count) {console.log(err, flashcard, count);});
+				
+	user.update({$push: {flashcards : {
+				question : "Q: How do we set up an element that responds to events?",  
+				answer : "element.addEventListener('eventName', callback)", 
+				mark: false}}},function(err, flashcard, count) {console.log(err, flashcard, count);});	
+							
+	user.update({$push: {flashcards : {
+				question : "Q: Why should we use sessions?",  
+				answer : "It allows us to store data on a per-session basis by maintaining a small piece of data on the client (via cookies)", 		mark: false}}},function(err, flashcard, count) {console.log(err, flashcard, count);});	
+				
+	user.update({$push: {flashcards : {
+				question : "Q: What's a NoSQL database ?",  
+				answer : "a database that doesn't model data using tables and relations between those tables", 
+				mark: false}}},function(err, flashcard, count) {console.log(err, flashcard, count);});
+				
+	user.update({$push: {flashcards : {
+				question : "Q: What's an ODM? ?",  
+				answer : "object document mapper : maps application objects (objects in your code) to documents in your database", 
+				mark: false}}},function(err, flashcard, count) {console.log(err, flashcard, count);});	
+
+				
+				
+
 		
 }
 

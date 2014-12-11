@@ -1,6 +1,11 @@
 <h1>Applied Internet Technology <br> Flash Cards</h1>
 
-<form method="POST" action="/login">
+{{#each message}}
+   <div class="alert alert-danger" id="msg">{{this}}</div> 
+{{/each}}
+
+
+<form method="POST" action="/login" id ="sign" class="form-horizontal">
   <div class="inset">
   <p>
     <label for="email">EMAIL</label>
@@ -16,3 +21,4 @@
 	  <input type="submit" name="go" id="go" value="Log in">
   </p>
 </form>
+

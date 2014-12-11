@@ -19,28 +19,36 @@ $(document).ready(function() {
 document.addEventListener('DOMContentLoaded', main);
 
 function main() {
-	var next = document.getElementById('next');
+	var next  = document.getElementById('next');
 	var mark1 = document.getElementById('mark1');	
 	var mark2 = document.getElementById('mark2');	
-	var box = document.getElementById('marked');
+	var box   = document.getElementById('marked');
+	var total = document.getElementById('total');
+	
+	/*check wether this is the only one marked card*/
+	if(total.innerHTML == 1){
+		/* Disable both back and next button */
+		next = document.getElementById('next');
+		next.removeEventListener('click', next_func);
+		/* and fade out the next button */
+		next.className = "disable";
+		
+		var back = document.getElementById('back');
+		back.removeEventListener('click', back_func);
+		/* and fade out the back button */
+		back.className = "disable";
+	}
 	
 	
-	/*check wether is there a flashcard marked */
-	var check_mark = document.getElementById('check');
-	if(check_mark.innerHTML != 'true'){
-		/*that means no flash cards marked */
-		alert("Sorry, you have not marked any cards yet. Please go back to the Flashcard page");
-		window.location.replace("http://localhost:3000/flashcard");
-	}	
-
-
     next.addEventListener('click',next_func);
-	mark1.addEventListener('click',mark_func);
-	mark2.addEventListener('click',mark_func);
+	mark1.addEventListener('click',unmark_func);
+	mark2.addEventListener('click',unmark_func);
 	box.addEventListener('click', function(){
 		count ++;
 		console.log(count);	
 	});
+	
+	
 	
 
 }
@@ -142,7 +150,7 @@ function back_func() {
 
 
 
-function mark_func() {
+function unmark_func() {
 	
 	count++;
 	
@@ -157,9 +165,40 @@ function mark_func() {
 	
 	req.addEventListener('load', function() {
 		if (req.status >= 200 && req.status < 400){
-			/* change the card to unmarked */
-			var box = document.getElementById('marked');
-			box.id = 'box';	
+			
+			data = JSON.parse(req.responseText);
+			var total = data.total;
+			console.log(total, typeof total);
+			
+			/*check whether this is the last marked card*/
+			if(total !== 0){
+				/*update total otherwise */
+				document.getElementById('total').innerHTML = document.getElementById('total').innerHTML -1;
+				/*update the card index, question, and answer */
+				document.getElementById('index').innerHTML = data.index.toLocaleString();
+				document.getElementById('ftxt').innerHTML = data.question.toLocaleString();
+				document.getElementById('btxt').innerHTML = data.answer.toLocaleString();	
+			}
+			
+			if(total == 1){
+				/*the only card, so wo need to disable both back and next button*/
+				console.log("jinlaile");
+				/*we should diable the next button*/
+				var next = document.getElementById('next');
+				next.removeEventListener('click', next_func);
+				/* and fade out the next button */
+				next.className = "disable";
+				
+				var back = document.getElementById('back');
+				back.removeEventListener('click', back_func);
+				/* and fade out the back button */
+				back.className = "disable";
+
+			}
+			
+			if(total === 0){
+				window.location.replace("http://localhost:3000/flashcard");
+			}
 		} 
 	});
 	

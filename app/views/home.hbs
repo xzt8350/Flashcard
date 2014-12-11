@@ -1,11 +1,32 @@
+<link rel="stylesheet" href="/stylesheets/flipclock.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/javascripts/flipclock.min.js"></script>
+
 <div id= "home">
-<p id = "hi"> &#x27b3 Hi, {{username}} &#982</p>
-
-
-<p id = "done"> You have completed <span style="color:#13D0FE"> {{done}} </span> flashcards already </p>
-
-<p id = "remain" style="color:red"> {{left}} remaining </p>
-
-<p id = "start"><a href = "flashcard" > Let's Start </a> </p>
-
+	<p id = "hi"> &#x27b3 Hi, {{username}} &#982</p>
+	<h2 id = "countdown">Countdown to Final </h2>
+	<div class="clock"  id = "time"></div>
+	<p id = "start"><a href = "flashcard" > Let's Start </a> </p>
 </div>
+
+<script type="text/javascript">
+	var clock;
+
+	$(document).ready(function() {
+
+		// Grab the current date
+		var currentDate = new Date();
+
+		// Set some date in the future. In this case, it's always Jan 1
+		var futureDate = new Date("December 17, 2014 8:00:00");
+
+		// Calculate the difference in seconds between the future and current date
+		var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
+
+		// Instantiate a coutdown FlipClock
+		clock = $('.clock').FlipClock(diff, {
+			clockFace: 'DailyCounter',
+			countdown: true
+		});
+	});
+</script>
