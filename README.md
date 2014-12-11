@@ -98,12 +98,12 @@ Flashcard: to store users' flashcards
     **Why Use It** : Help the user create their own account on my website. It allows the user to create and store their own flashcards. Also, it coud make sure that users marked their choice of flashcards they want.
     
     
-2. **Use a CSS framework **
+2. **Use a CSS framework**
 	
     **Why Use It** : CSS framework of bootstrap helps me save tons of time on beautify my website. Also, it makes the style of the website really clean. 
 
 
-3. **Integrate JSHint **
+3. **Integrate JSHint**
 
     **Why Use It** : It helps me to detect any potential error on my javascript file. 
     
