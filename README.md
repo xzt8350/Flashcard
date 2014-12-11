@@ -56,7 +56,7 @@ Flashcard: to store users' flashcards
 
 *   **Marked Page** 
   
-    ![Project Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/marked_me.png)
+    ![Project Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/marked_page.png)
 
 *   **Add Page** 
   
