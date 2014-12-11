@@ -3,7 +3,7 @@ Final Project
 
 ## Description
 
-I use the Node.js to build up the website based on the app of flashcards. I integrate the user authentication to allow the user to local login and uses CSS framwork of bootstrap to beautify the website.
+I use the Node.js to build up the website based on the app of flashcards. User should sign up and log in to the website. I build in 10 flashcards questions relative to our course which will render to the new user first login. User could click each of flashcard to flip it in order to see the answer. Clicking the heart symbol at each flashcard could  mark this flashcard, and user could review these marked flashcards individually at the marked page. In addition, user could add their own flashcards. These flashcards will treat same as the build-in flashcards.
 
 ##Schemas
 
