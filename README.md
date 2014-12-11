@@ -3,40 +3,35 @@ Final Project
 
 ## Description
 
-I use the Node.js to build up my personal website for the final project. Users are required to sign up first to access the whole website. The website includes the introduction of me, the project i have done relative to my major of computer science, and the Sneak Game i wrote. 
+I use the Node.js to build up the website based on the app of flashcards. I integrate the user authentication to allow the user to local login and uses CSS framwork of bootstrap to beautify the website.
 
 ##Schemas
 
-  user : to store the user information
-  
-    var user = new mongoose.Schema({
-	      login: [Login],
-	      game: [Game]
-    });
+User : store the user log in information and flashcards 
+
+    var User = new mongoose.Schema({
     
-  Login: to store users' login in information including local log in or access by facebook and google
+    local            : {
+        email        : String,
+        password     : String,
+    },
+      
+	new_user    : Boolean,
+	num_marked  : Number,
+	marked_index: [Number],
+	num_total   : Number, 
     
-    var Login = new mongoose.Schema({
+    flashcards : [Flashcard]
+});
+
     
-        local         : {
-          email    : String,
-          password : String,
-        },
-        
-        facebook      : {
-          id       : String,
-          token    : String,
-          email    : String,
-          name     : String
-        },
-  
-        google        : {
-          id       : String,
-          token    : String,
-          email    : String,
-          name     : String
-      }
-    }); 
+Flashcard: to store users' flashcards
+    
+	var Flashcard = new mongoose.Schema({
+		question : String,
+		answer :  String,
+		mark : Boolean
+	});
   
   Game : store the three highest score of all users' play and the highest score of the playing user		
  
