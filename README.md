@@ -42,7 +42,7 @@ Flashcard: to store users' flashcards
 
 ## Wireframes
 
-*   **Sign in Page** 
+*   **Log in Page** 
   
     ![Sign in Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/login_page.png)
 
@@ -50,22 +50,17 @@ Flashcard: to store users' flashcards
   
     ![Home Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/home_page.png)
 
-*   **About Me Page** 
+*   **Flashcard Page** 
   
-    ![About Me Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/about_me.png)
+    ![Flashcard Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/flashcard_page.png)
 
-*   **Project Page** 
+*   **Marked Page** 
   
-    ![Project Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/about_me.png)
+    ![Project Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/marked_me.png)
 
-*   **Game Page** 
+*   **Add Page** 
   
-    ![Game Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/game_page.png)
-
-*   **Contact Page** 
-  
-    ![Contact Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/contact_page.png)
-
+    ![Game Page](https://github.com/nyu-csci-ua-0480-002-fall-2014/zx283-final-project/blob/master/documentation/add_page.png)
 
 ## Site Map
 
