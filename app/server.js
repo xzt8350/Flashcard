@@ -4,7 +4,6 @@
 var express  = require('express');
 var app      = express();
 var port     = process.env.PORT || 3000;
-var sass     = require('node-sass');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -17,8 +16,21 @@ var session      = require('express-session');
 
 // configuration ===============================================================
 require('./config/database'); // connect to our database
-
 require('./config/passport')(passport); // pass passport for configuration
+
+var uristring =
+process.env.MONGOLAB_URI ||
+process.env.MONGOHQ_URL ||
+'mongodb://localhost/HelloMongoose';
+
+mongoose.connect(uristring, function (err, res) {
+  if (err) {
+  console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+  } else {
+  console.log ('Succeeded connected to: ' + uristring);
+  }
+});
+
 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console

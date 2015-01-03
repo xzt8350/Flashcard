@@ -38,5 +38,4 @@ mongoose.model('User', User);
 mongoose.model('Flashcard', Flashcard);
 
 
-mongoose.connect('mongodb://localhost/users');
 
